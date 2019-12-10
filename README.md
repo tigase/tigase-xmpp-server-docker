@@ -1,3 +1,7 @@
+Tigase's Docker package for the Tigase XMPP Server.
+
+**Please note! This is still experimental and under development. Not ready for production as it is now but a good starting point for further customizations and adjusting to specific needs.**
+
 # Supported tags and respective `Dockerfile`s
 
 ## Simple tags
