@@ -6,6 +6,7 @@ Tigase's Docker package for the Tigase XMPP Server.
 
 ## Simple tags
 -   [`latest-jdk11-slim` (*latest/jdk-11/slim/Dockerfile*)](latest/jdk-11/slim/Dockerfile)
+-   [`8.1.0-jdk11-slim` (*8.1.0/jdk-11/slim/Dockerfile*)](8.1.0/jdk-11/slim/Dockerfile)
 -   [`8.0.0-jdk11-slim` (*8.0.0/jdk-11/slim/Dockerfile*)](8.0.0jdk-11/slim/Dockerfile)
 -   [`8.0.0-jdk8-slim` (*8.0.0/jdk-8/slim/Dockerfile*)](8.0.0/jdk-8/slim/Dockerfile)
 
