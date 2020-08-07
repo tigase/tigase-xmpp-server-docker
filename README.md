@@ -2,8 +2,21 @@ Tigase's Docker package for the Tigase XMPP Server.
 
 **Please note! This is still experimental and under development. Not ready for production as it is now but a good starting point for further customizations and adjusting to specific needs.**
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Supported tags and respective `Dockerfile`s](#supported-tags-and-respective-dockerfiles)
+  - [Simple tags](#simple-tags)
+- [What is Tigase XMPP server?](#what-is-tigase-xmpp-server)
+- [How to use this image?](#how-to-use-this-image)
+  - [Starting Tigase XMPP Server](#starting-tigase-xmpp-server)
+  - [Setting hostname](#setting-hostname)
+  - [Exposing ports](#exposing-ports)
+  - [Connecting to external database](#connecting-to-external-database)
+  - [Exported volumes](#exported-volumes)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Supported tags and respective `Dockerfile`s
 
