@@ -9,10 +9,17 @@ Tigase's Docker package for the Tigase XMPP Server.
 - [What is Tigase XMPP server?](#what-is-tigase-xmpp-server)
 - [How to use this image?](#how-to-use-this-image)
   - [Starting Tigase XMPP Server](#starting-tigase-xmpp-server)
-  - [Setting hostname](#setting-hostname)
-  - [Exposing ports](#exposing-ports)
-  - [Connecting to external database](#connecting-to-external-database)
-  - [Exported volumes](#exported-volumes)
+  - [Configuration](#configuration)
+    - [Setting hostname](#setting-hostname)
+      - [Dedicated network](#dedicated-network)
+    - [Exposing ports](#exposing-ports)
+    - [Connecting to external database](#connecting-to-external-database)
+    - [Exported volumes](#exported-volumes)
+    - [Tweaking memory configuration](#tweaking-memory-configuration)
+  - [Complete Run Examples](#complete-run-examples)
+    - [Single, basic instance](#single-basic-instance)
+    - [Cluster with mysql](#cluster-with-mysql)
+- [Building](#building)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
