@@ -1,7 +1,5 @@
 Tigase's Docker package for the Tigase XMPP Server.
 
-**Please note! This is still experimental and under development. Not ready for production as it is now but a good starting point for further customizations and adjusting to specific needs.**
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
@@ -21,16 +19,16 @@ Tigase's Docker package for the Tigase XMPP Server.
 # Supported tags and respective `Dockerfile`s
 
 ## Simple tags
--   [`latest-jdk11-slim` (*latest/jdk-11/slim/Dockerfile*)](latest/jdk-11/slim/Dockerfile)
--   [`8.1.0-jdk11-slim` (*8.1.0/jdk-11/slim/Dockerfile*)](8.1.0/jdk-11/slim/Dockerfile)
--   [`8.0.0-jdk11-slim` (*8.0.0/jdk-11/slim/Dockerfile*)](8.0.0jdk-11/slim/Dockerfile)
--   [`8.0.0-jdk8-slim` (*8.0.0/jdk-8/slim/Dockerfile*)](8.0.0/jdk-8/slim/Dockerfile)
+-   [`nightly` (*nightly/Dockerfile*)](nightly/Dockerfile)
+-   [`8.1.0` (*8.1.0/Dockerfile*)](8.1.0/Dockerfile) (latest)
+-   [`8.0.0` (*8.0.0/Dockerfile*)](8.0.0/Dockerfile)
+-   [`8.0.0-jdk8` (*8.0.0/jdk-8/Dockerfile*)](8.0.0/jre-8/Dockerfile)
 
 # What is Tigase XMPP server?
 
-[Tigase XMPP Server](https://tigase.tech/projects/tigase-server) is scalable and performant implementation of the XMPP server written in Java.
+[Tigase XMPP Server](https://github.com/tigase/tigase-server/) is scalable and performant server implementation of the XMPP protocol written in Java.
 
-For more informations about Tigase XMPP Server and related products, please visit https://tigase.net and https://tigase.tech.
+For more information about Tigase XMPP Server and related products, please visit https://tigase.net.
 
 Documentation for Tigase XMPP Server is available at https://docs.tigase.net.
 
@@ -40,19 +38,25 @@ Documentation for Tigase XMPP Server is available at https://docs.tigase.net.
 
 Starting Tigase XMPP Server is very simple:
 
-````bash
-$ docker run --name some-tigase -d tigase:tag
-````
+```bash
+$ docker run --name some-tigase -d tigase-xmpp-server:latest
+```
 
-where `some-tigase` is name of the container to use and `tag` is the tag specifying version of Tigase XMPP Server to run.
+where `some-tigase` is name of the container that will be created and `tag` is the tag specifying version of Tigase XMPP Server to run.
 
 If Tigase XMPP Server is started for the first time (without any configuration), it will start web-based setup at port 8080.
 
-## Setting hostname
+## Configuration
 
-In some cases, ie. in clustering, you may want to change hostname of the container of Tigase XMPP Server. To do so you need to add `--hostname domain.com` to the list of `docker run` parameters.
+### Setting hostname
 
-## Exposing ports
+In some cases, ie. in clustering, you may want to change hostname of the container of Tigase XMPP Server. To do so you need to add `--hostname cluster-node-1` (`-h cluster-node-1`) to the list of `docker run` parameters.
+
+#### Dedicated network
+
+It's often a good idea to group related docker services on same, dedicated network. First, create the network: `docker network create -d bridge tigase_cluster` and then add it to `docker run` parameters: `--network tigase_cluster`
+
+### Exposing ports
 
 Tigase XMPP Server as the XMPP server is only useful if accessible from the outside of the container. Tigase exposes following ports:
 - `5222` - for incoming client to server XMPP connections
@@ -63,12 +67,13 @@ Tigase XMPP Server as the XMPP server is only useful if accessible from the outs
 - `5290` - for WebSocket connections
 - `5291` - for WebSocket connections over TLS/SSL
 - `8080` - for HTTP server (web-based setup, REST API, file upload extension, etc.)
+- `9050` - for JXM monitoring
 
 Docker image defines all of the above ports as exportable, however it depends on the Tigase XMPP Server configuration if particular service is available at any of those ports.
 
-## Connecting to external database
+### Connecting to external database
 
-If you want to use Tigase XMPP Server with the external database you need to connect Tigase XMPP Server container to the database container or allow Tigase XMPP Server to access database server.
+If you want to use Tigase XMPP Server with the external database you need to connect Tigase XMPP Server container to the database container (must be in the same docker network) or allow Tigase XMPP Server to access database server.
 
 Tigase XMPP Server supports following databases:
 - DerbyDB
@@ -81,18 +86,121 @@ for details about required version of the databases please check Tigase XMPP Ser
 
 It is recommended to pass database username and password for creation and schema management of the database.
 
-````bash
-$ docker run -e 'DB_ROOT_USER=root' -e 'DB_ROOT_PASS=root-pass' --name some-tigase -d tigase:tag
-````
+```bash
+$ docker run -e 'DB_ROOT_USER=root' -e 'DB_ROOT_PASS=root-pass' --name some-tigase -d tigase-xmpp-server:latest
+```
 
 This will allow Tigase XMPP Server to manage and verify database schema.
 
 Database configuration may be then done using web-based setup.
 
-## Exported volumes
+### Exported volumes
 
 This image exports following volumes to allow you to keep configuration, logs and persistent data outside of the container:
 - `/home/tigase/tigase-server/etc/` - configuration of the server *(default config files will be created after first startup of the container)*
 - `/home/tigase/tigase-server/certs/` - SSL certificates for use by the server for securing connectivity
 - `/home/tigase/tigase-server/logs/` - detailed logs of the server
 - `/home/tigase/tigase-server/data/` - data stored by HTTP-based file upload feature of the server
+
+> **NOTE:** It's possible (and recommended) to share `etc` configuration directory across Tigase cluster as all instances use the same configuration.
+
+### Tweaking memory configuration
+
+When using default Tigase's docker images JDK11 is used, which is aware about being run within (docker) container. However, one should keep in mind that default JDK's memory settings will be applied (minimum heap of 25% of memory, maximum heap of 50% of available memory - either container's [if set], or host machine). It's possible to adjust those by setting `PRODUCTION_HEAP_SETTINGS` environment variable to the desired value. For example, to configure Tigase's JVM to use 90% and start with small initial heap add following `-e 'PRODUCTION_HEAP_SETTINGS=-XX:MaxRAMPercentage=90 -Xms128m'` to `docker run`.
+
+It's also possible to tweak garbage collector settings by setting `GC` environment variable.
+
+## Complete Run Examples
+
+### Single, basic instance 
+
+Below command will run latest version of Tigase with configuration, certificates and (http upload) data directories mapped, configured root database credentials and ports mapped. 
+
+```bash
+docker run -d \
+    --name some_tigase \
+    -v /home/tigase/etc/:/home/tigase/tigase-server/etc/ \
+    -v /home/tigase/certs/:/home/tigase/tigase-server/certs/ \
+    -v /home/tigase/data/:/home/tigase/tigase-server/data/ \
+    -e 'DB_ROOT_USER=root' \
+    -e 'DB_ROOT_PASS=root-password' \
+    -p 5222:5222 \
+    -p 5280:5280 \
+    -p 5290:5290 \
+    -p 8080:8080 \
+    tigase-xmpp-server:latest
+```
+
+### Cluster with mysql
+
+1. Create docker network bridge named `tigase_cluster`
+
+```bash
+docker network create -d bridge tigase_cluster
+```
+
+2. Create MySQL container, connect it to created `tigase_cluster` network, configure name and hostname as `tigase_mysql`, expose port and configure root user password
+
+```bash
+docker run -d \
+    --name tigase_mysql
+    --hostname tigase_mysql
+    --network tigase_cluster
+    -p 3306:3306
+    -e MYSQL_ROOT_PASSWORD=root-password
+    mysql:5.7
+```
+
+3. Run latest version of Tigase connected to `tigase_cluster` network with configuration, certificates and (http upload) data directories mapped, configured root database credentials and user-facing (5222, 5280, 5290, 8080) ports exposed. 
+   
+```bash
+docker run -d \
+   --name tigase_cl1 \
+   --hostname tigase_cl1
+   --network tigase_cluster
+   -v /home/tigase/etc/:/home/tigase/tigase-server/etc/ \
+   -v /home/tigase/certs/:/home/tigase/tigase-server/certs/ \
+   -v /home/tigase/data/:/home/tigase/tigase-server/data/ \
+   -e 'DB_ROOT_USER=root' \
+   -e 'DB_ROOT_PASS=root-password' \
+   -p 5222:5222 \
+   -p 5280:5280 \
+   -p 5290:5290 \
+   -p 8080:8080 \
+   tigase-xmpp-server:latest
+```
+
+4. Once started, open http://localhost:8080 (from the same machine, or using http://<server_hostname>:8080), follow installer steps and save configuration at the end.
+
+5. Restart current container
+
+```bash
+docker restart tigase_cl1
+```
+
+6. Add nodes to cluster
+
+```bash
+docker run -d \
+   --name tigase_cl2 \
+   --hostname tigase_cl2
+   --network tigase_cluster
+   -v /home/tigase/etc/:/home/tigase/tigase-server/etc/ \
+   -v /home/tigase/certs/:/home/tigase/tigase-server/certs/ \
+   -v /home/tigase/data/:/home/tigase/tigase-server/data/ \
+   -e 'DB_ROOT_USER=root' \
+   -e 'DB_ROOT_PASS=root-password' \
+   -p 5322:5222 \
+   -p 5380:5280 \
+   -p 5390:5290 \
+   -p 8083:8080 \
+   tigase-xmpp-server:latest
+```
+
+> **NOTE:** Make sure that `name`, `hostname` and bounded ports are unique - in this case second node uses `tigase_cl2` (instead of `tigase_cl1`) as `name` and `hostname` and bounded ports were changed to `5322`, `5380`, `5390` and `8083` to avoid conflicts.
+
+# Building
+
+```bash
+docker build -t tigase-xmpp-server:8.1.0 -f 8.1.0/Dockerfile --no-cache 8.1.0/
+```

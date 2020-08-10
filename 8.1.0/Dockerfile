@@ -1,23 +1,22 @@
-FROM openjdk:8-jdk-slim
+FROM openjdk:11-jre-slim
 MAINTAINER "Tigase, Inc." <office@tigase.net>
 
 # Create directory structure, download Tigase XMPP Server -dist-max package and unpack it
 # At the same time remove setting JAVA_HOME from etc/tigase.conf as variable is already set
-# and add additional parameters to GC variable to make Java aware of Docker limits
 # Then move content of etc/ directory to etc.orig/ to be able to use volume to host configuration.
 # Additionally we are removing docs/ and downloaded package to reduce size.
 RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends wget \
-	&& wget https://tigase.tech/attachments/download/6751/tigase-server-8.0.0-b10083-dist-max.tar.gz \
+	&& wget https://github.com/tigase/tigase-server/releases/download/tigase-server-8.1.0/tigase-server-8.1.0-b10857-dist-max.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& tar -zxvf tigase-server-8.0.0-b10083-dist-max.tar.gz \
+	&& tar -zxvf tigase-server-8.1.0-b10857-dist-max.tar.gz \
 	&& ln -s `find . -name 'tigase-server-*' -maxdepth 1 -type d` tigase-server \
 	&& rm -rf tigase-server/docs/ \
-	&& rm -rf tigase-server-8.0.0-b10083-dist-max.tar.gz \
-	&& sed -i -e 's/JAVA_HOME/#JAVA_HOME/;/^JAVA_METASPACE=.*/a \\nGC="${GC} -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap "\n' tigase-server/etc/tigase.conf \
+	&& rm -rf tigase-server-8.1.0-b10857-dist-max.tar.gz \
+	&& sed -i -e 's/JAVA_HOME/#JAVA_HOME/' tigase-server/etc/tigase.conf \
 	&& mv tigase-server/etc tigase-server/etc.orig
 
 # Add statup scripts and make them executable
@@ -32,7 +31,7 @@ RUN chmod 755 /tigase.sh
 ENV TIGASE_HOME /home/tigase/tigase-server
 
 # Set ports of the container which can be exposed
-EXPOSE 5222 5223 5277 5280 5281 5290 5291 8080 9070
+EXPOSE 5222 5223 5277 5280 5281 5290 5291 8080 9050 9070
 
 # Set possible volume (directories which can be mounted from the docker host machine)
 # like etc/, conf/, certs/, logs/, data/
