@@ -97,6 +97,7 @@ for details about required version of the databases please check Tigase XMPP Ser
 It is recommended to pass database username and password for creation and schema management of the database.
 
 ```bash
+$ docker pull tigase/tigase-xmpp-server
 $ docker run -e 'DB_ROOT_USER=root' -e 'DB_ROOT_PASS=root-pass' --name tigase-server -d tigase/tigase-xmpp-server
 ```
 

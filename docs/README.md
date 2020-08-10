@@ -36,6 +36,7 @@ Documentation for Tigase XMPP Server is available at [docs.tigase.net](https://d
 Starting Tigase XMPP Server is very simple:
 
 ```bash
+$ docker pull tigase/tigase-xmpp-server
 $ docker run --name tigase-server -p 8080:8080 -p 5222:5222 tigase/tigase-xmpp-server:tag
 ```
 
