@@ -49,10 +49,10 @@ Documentation for Tigase XMPP Server is available at https://docs.tigase.net.
 Starting Tigase XMPP Server is very simple:
 
 ```bash
-$ docker run --name some-tigase -d tigase-xmpp-server:latest
+$ docker run --name tigase-server -p 8080:8080 -p 5222:5222 tigase/tigase-xmpp-server:tag
 ```
 
-where `some-tigase` is name of the container that will be created and `tag` is the tag specifying version of Tigase XMPP Server to run.
+where `tigase-server` is name of the container that will be created and `tag` is the tag specifying version of Tigase XMPP Server to run (if `tag` is not specified then `latest` will be used)
 
 If Tigase XMPP Server is started for the first time (without any configuration), it will start web-based setup at port 8080.
 
@@ -97,7 +97,7 @@ for details about required version of the databases please check Tigase XMPP Ser
 It is recommended to pass database username and password for creation and schema management of the database.
 
 ```bash
-$ docker run -e 'DB_ROOT_USER=root' -e 'DB_ROOT_PASS=root-pass' --name some-tigase -d tigase-xmpp-server:latest
+$ docker run -e 'DB_ROOT_USER=root' -e 'DB_ROOT_PASS=root-pass' --name tigase-server -d tigase/tigase-xmpp-server
 ```
 
 This will allow Tigase XMPP Server to manage and verify database schema.
@@ -138,7 +138,7 @@ $ docker run -d \
     -p 5280:5280 \
     -p 5290:5290 \
     -p 8080:8080 \
-    tigase-xmpp-server:latest
+    tigase/tigase-xmpp-server
 ```
 
 ### Cluster with mysql
@@ -177,7 +177,7 @@ $ docker run -d \
    -p 5280:5280 \
    -p 5290:5290 \
    -p 8080:8080 \
-   tigase-xmpp-server:latest
+   tigase/tigase-xmpp-server
 ```
 
 4. Once started, open http://localhost:8080 (from the same machine, or using http://<server_hostname>:8080), follow installer steps and save configuration at the end.
@@ -204,7 +204,7 @@ docker run -d \
    -p 5380:5280 \
    -p 5390:5290 \
    -p 8083:8080 \
-   tigase-xmpp-server:latest
+   tigase/tigase-xmpp-server
 ```
 
 > **NOTE:** Make sure that `name`, `hostname` and bounded ports are unique - in this case second node uses `tigase_cl2` (instead of `tigase_cl1`) as `name` and `hostname` and bounded ports were changed to `5322`, `5380`, `5390` and `8083` to avoid conflicts.
