@@ -1,35 +1,23 @@
-Tigase's Docker package for the Tigase XMPP Server.
+# Quick reference
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+-	**Maintained by**:  
+	[Tigase Team](https://github.com/tigase/tigase-xmpp-server-docker)
 
-- [Supported tags and respective `Dockerfile`s](#supported-tags-and-respective-dockerfiles)
-  - [Simple tags](#simple-tags)
-- [What is Tigase XMPP server?](#what-is-tigase-xmpp-server)
-- [How to use this image?](#how-to-use-this-image)
-  - [Starting Tigase XMPP Server](#starting-tigase-xmpp-server)
-  - [Configuration](#configuration)
-    - [Setting hostname](#setting-hostname)
-      - [Dedicated network](#dedicated-network)
-    - [Exposing ports](#exposing-ports)
-    - [Connecting to external database](#connecting-to-external-database)
-    - [Exported volumes](#exported-volumes)
-    - [Tweaking memory configuration](#tweaking-memory-configuration)
-  - [Complete Run Examples](#complete-run-examples)
-    - [Single, basic instance](#single-basic-instance)
-    - [Cluster with mysql](#cluster-with-mysql)
-- [Building](#building)
+-	**Where to get help**:  
+	[Tigase XMPP Server Docker GitHub](https://github.com/tigase/tigase-xmpp-server-docker), [Tigase Support](https://tigase.net/technical-support)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+-	**Where to file issues**:  
+	[https://github.com/tigase/tigase-xmpp-server-docker/issues](https://github.com/tigase/tigase-xmpp-server-docker/issues)
 
 # Supported tags and respective `Dockerfile`s
 
 ## Simple tags
--   [`nightly` (*nightly/Dockerfile*)](nightly/Dockerfile)
--   [`8.1.0`, `latest` (*8.1.0/Dockerfile*)](8.1.0/Dockerfile)
--   [`8.0.0` (*8.0.0/Dockerfile*)](8.0.0/Dockerfile)
--   [`8.0.0-jre8` (*8.0.0/jre-8/Dockerfile*)](8.0.0/jre-8/Dockerfile)
+-   [`nightly` (*nightly/Dockerfile*)](https://github.com/tigase/tigase-xmpp-server-docker/blob/master/nightly/Dockerfile)
+-   [`8.1.0`, `latest` (*8.1.0/Dockerfile*)](https://github.com/tigase/tigase-xmpp-server-docker/blob/master/8.1.0/Dockerfile)
+-   [`8.0.0` (*8.0.0/Dockerfile*)](https://github.com/tigase/tigase-xmpp-server-docker/blob/master/8.0.0/Dockerfile)
+-   [`8.0.0-jre8` (*8.0.0/jre-8/Dockerfile*)](https://github.com/tigase/tigase-xmpp-server-docker/blob/master/8.0.0/jre-8/Dockerfile)
+
+Tigase's Docker package for the Tigase XMPP Server.
 
 # What is Tigase XMPP server?
 
@@ -37,9 +25,9 @@ Tigase's Docker package for the Tigase XMPP Server.
 
 For more information about Tigase XMPP Server and related products, please visit https://tigase.net.
 
-Documentation for Tigase XMPP Server is available at https://docs.tigase.net.
+Documentation for Tigase XMPP Server is available at [docs.tigase.net](https://docs.tigase.net).
 
-![Tigase logo](docs/logo.png)
+![Tigase logo](https://raw.githubusercontent.com/tigase/tigase-xmpp-server-docker/master/docs/logo.png)
 
 # How to use this image?
 
@@ -190,7 +178,7 @@ $ docker restart tigase_cl1
 6. Add nodes to cluster
 
 ```bash
-docker run -d \
+$ docker run -d \
    --name tigase_cl2 \
    --hostname tigase_cl2
    --network tigase_cluster
@@ -216,6 +204,6 @@ $ docker build -t tigase-xmpp-server:8.1.0 -f 8.1.0/Dockerfile --no-cache 8.1.0/
 
 # License
 
-<img alt="Tigase Tigase Logo" src="https://github.com/tigase/website-assets/blob/master/tigase/images/tigase-logo.png?raw=true" width="25"/> Official <a href="https://tigase.net/">Tigase</a> repository is available at: https://github.com/tigase/tigase-server/.
+<img alt="Tigase Tigase Logo" src="https://github.com/tigase/website-assets/blob/master/tigase/images/tigase-logo.png?raw=true" width="25"/> Official <a href="https://tigase.net/">Tigase</a> repository is available at: https://github.com/tigase/tigase-xmpp-server-docker.
 
 Copyright (c) 2004 Tigase, Inc.
