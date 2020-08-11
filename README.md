@@ -49,6 +49,7 @@ Documentation for Tigase XMPP Server is available at https://docs.tigase.net.
 Starting Tigase XMPP Server is very simple:
 
 ```bash
+$ docker pull tigase/tigase-xmpp-server
 $ docker run --name tigase-server -p 8080:8080 -p 5222:5222 tigase/tigase-xmpp-server:tag
 ```
 
@@ -97,7 +98,6 @@ for details about required version of the databases please check Tigase XMPP Ser
 It is recommended to pass database username and password for creation and schema management of the database.
 
 ```bash
-$ docker pull tigase/tigase-xmpp-server
 $ docker run -e 'DB_ROOT_USER=root' -e 'DB_ROOT_PASS=root-pass' --name tigase-server -d tigase/tigase-xmpp-server
 ```
 
