@@ -127,6 +127,27 @@ When using default Tigase's docker images JDK11 is used, which is aware about be
 
 It's also possible to tweak garbage collector settings by setting `GC` environment variable.
 
+### Operating system settings
+
+When running Tigase XMPP Server in production it's essential to apply configuration outlined in [Linux Settings for High Load Systems](https://docs.tigase.net/tigase-server/master-snapshot/Administration_Guide/html/#linuxhighload). In case of Tigase's Docker image this is done via parameters applied to `docker run`:
+* [`--sysctl map` (Sysctl options (default map[]))](https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime)
+* [`--ulimit ulimit` (Ulimit options (default []))](https://docs.docker.com/engine/reference/commandline/run/#set-ulimits-in-container---ulimit)
+
+#### Number of opened files
+
+This parameter is inherited from the host operating system and should be configred on the host. If there is a desire to adjust it then adding `--ulimit nofile=350000:350000` to the list of `docker run` parameters would do the trick
+
+#### TCP network settings
+
+Network configuration adjustments are mostly needed if online user status is not detected correctly after user is disconnected (or with a significant delay).
+
+```
+--sysctl "net.ipv4.tcp_keepalive_time=60" \
+--sysctl "net.ipv4.tcp_keepalive_probes=3" \
+--sysctl "net.ipv4.tcp_keepalive_intvl=90" \
+--sysctl "net.ipv4.ip_local_port_range=1024 65000" 
+```
+
 ## Complete Run Examples
 
 ### Single, basic instance 
