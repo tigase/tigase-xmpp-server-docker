@@ -8,7 +8,5 @@ else
   ./tigase.sh upgrade-schema /home/tigase/tigase-server/etc/tigase.conf -R ${DB_ROOT_USER} -A ${DB_ROOT_PASS}
 fi
 
-echo "Upgrading database schema...";
-./tigase.sh upgrade-schema /home/tigase/tigase-server/etc/tigase.conf -R ${DB_ROOT_USER} -A ${DB_ROOT_PASS}
 echo "Starting Tigase XMPP Server...";
 ./tigase.sh run /home/tigase/tigase-server/etc/tigase.conf
