@@ -8,7 +8,7 @@ MAINTAINER "Tigase, Inc." <office@tigase.net>
 RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
-	&& apt-get install -y --no-install-recommends wget \
+	&& apt-get install -y --no-install-recommends wget curl \
 	&& wget https://build.tigase.net/nightlies/dists/latest/tigase-server-dist-max.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
