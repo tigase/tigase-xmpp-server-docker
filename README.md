@@ -244,7 +244,19 @@ docker run -d \
 # Building
 
 ```bash
-$ docker build -t tigase-xmpp-server:8.1.0 -f 8.1.0/Dockerfile --no-cache 8.1.0/
+$ docker build -t tigase/tigase-xmpp-server:8.0.0-jre-8 -f 8.0.0/jre-8/Dockerfile --no-cache 8.0.0/
+$ docker build -t tigase/tigase-xmpp-server:8.0.0 -f 8.0.0/Dockerfile --no-cache 8.0.0/
+$ docker build -t tigase/tigase-xmpp-server:8.1.0 -f 8.1.0/Dockerfile --no-cache 8.1.0/
+```
+
+## Publishing
+
+```bash
+$ docker push tigase/tigase-xmpp-server:8.0.0-jre-8
+$ docker push tigase/tigase-xmpp-server:8.0.0
+$ docker push tigase/tigase-xmpp-server:8.1.0
+$ docker tag tigase/tigase-xmpp-server:8.1.0 tigase/tigase-xmpp-server:latest
+$ docker push tigase/tigase-xmpp-server:latest
 ```
 
 # License
