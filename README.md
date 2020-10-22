@@ -27,6 +27,7 @@ Tigase's Docker package for the Tigase XMPP Server.
     - [Single, basic instance](#single-basic-instance)
     - [Cluster with mysql](#cluster-with-mysql)
 - [Building](#building)
+  - [Publishing](#publishing)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
