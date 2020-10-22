@@ -31,7 +31,7 @@ RUN chmod 755 /tigase.sh
 ENV TIGASE_HOME /home/tigase/tigase-server
 
 # Set ports of the container which can be exposed
-EXPOSE 5222 5223 5277 5280 5281 5290 5291 8080 9050 9070
+EXPOSE 5222 5223 5269 5277 5280 5281 5290 5291 8080 9050 9070
 
 # Set possible volume (directories which can be mounted from the docker host machine)
 # like etc/, conf/, certs/, logs/, data/

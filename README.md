@@ -81,6 +81,7 @@ It's often a good idea to group related docker services on same, dedicated netwo
 Tigase XMPP Server as the XMPP server is only useful if accessible from the outside of the container. Tigase exposes following ports:
 - `5222` - for incoming client to server XMPP connections (over StartTLS)
 - `5223` - for incoming client to server XMPP connections (over DirectTLS/SSL)
+- `5269` - for federated XMPP connections (s2s)
 - `5277` - for inter-cluster communication
 - `5280` - for BOSH connections
 - `5281` - for BOSH connections over TLS/SSL
