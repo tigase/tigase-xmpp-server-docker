@@ -23,9 +23,7 @@ RUN mkdir /home/tigase \
 # We need custom scripts to make sure that database is upgraded
 # and that Tigase will NOT be launched as background service!
 ADD scripts/start.sh /start.sh
-ADD scripts/tigase.sh /tigase.sh
 RUN chmod 755 /start.sh
-RUN chmod 755 /tigase.sh
 
 # Set TIGASE_HOME variable
 ENV TIGASE_HOME /home/tigase/tigase-server
