@@ -1,6 +1,8 @@
 FROM openjdk:11-jre-slim
 MAINTAINER "Tigase, Inc." <office@tigase.net>
 
+ARG TIGASE_RELEASE=8.1.1-b10861-dist-max
+ARG TIGASE_VERSION=8.1.1
 # Create directory structure, download Tigase XMPP Server -dist-max package and unpack it
 # At the same time remove setting JAVA_HOME from etc/tigase.conf as variable is already set
 # Then move content of etc/ directory to etc.orig/ to be able to use volume to host configuration.
@@ -9,13 +11,13 @@ RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends wget \
-	&& wget https://github.com/tigase/tigase-server/releases/download/tigase-server-8.1.0/tigase-server-8.1.0-b10857-dist-max.tar.gz \
+	&& wget https://github.com/tigase/tigase-server/releases/download/tigase-server-${TIGASE_VERSION}/tigase-server-${TIGASE_RELEASE}.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& tar -zxvf tigase-server-8.1.0-b10857-dist-max.tar.gz \
+	&& tar -zxvf tigase-server-${TIGASE_RELEASE}.tar.gz \
 	&& ln -s `find . -name 'tigase-server-*' -maxdepth 1 -type d` tigase-server \
 	&& rm -rf tigase-server/docs/ \
-	&& rm -rf tigase-server-8.1.0-b10857-dist-max.tar.gz \
+	&& rm -rf tigase-server-${TIGASE_RELEASE}.tar.gz \
 	&& sed -i -e 's/JAVA_HOME/#JAVA_HOME/' tigase-server/etc/tigase.conf \
 	&& mv tigase-server/etc tigase-server/etc.orig
 
