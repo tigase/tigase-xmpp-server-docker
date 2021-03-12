@@ -245,19 +245,30 @@ docker run -d \
 # Building
 
 ```bash
-$ docker build -t tigase/tigase-xmpp-server:8.0.0-jre-8 -f 8.0.0/jre-8/Dockerfile --no-cache 8.0.0/
-$ docker build -t tigase/tigase-xmpp-server:8.0.0 -f 8.0.0/Dockerfile --no-cache 8.0.0/
-$ docker build -t tigase/tigase-xmpp-server:8.1.0 -f 8.1.0/Dockerfile --no-cache 8.1.0/
+$ VERSION=8.0.0 ; docker build -t tigase/tigase-xmpp-server:${VERSION}-jre-8 -f ${VERSION}/jre-8/Dockerfile --no-cache ${VERSION}/
+$ for VERSION in 8.0.0 8.1.0 8.1.1 ;  do \
+	docker build -t tigase/tigase-xmpp-server:${VERSION} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ ; \
+  done
 ```
 
 ## Publishing
 
 ```bash
 $ docker push tigase/tigase-xmpp-server:8.0.0-jre-8
-$ docker push tigase/tigase-xmpp-server:8.0.0
-$ docker push tigase/tigase-xmpp-server:8.1.0
-$ docker tag tigase/tigase-xmpp-server:8.1.0 tigase/tigase-xmpp-server:latest
+$ for VERSION in 8.0.0 8.1.0 8.1.1 ;  do \
+	docker push tigase/tigase-xmpp-server:${VERSION}
+  done
+$ docker tag tigase/tigase-xmpp-server:8.1.1 tigase/tigase-xmpp-server:latest
 $ docker push tigase/tigase-xmpp-server:latest
+```
+
+## Tagging nightlies
+
+```
+docker pull tigase/tigase-xmpp-server:nightly
+VERSION=8.1-$(date +%Y-%m-%d)
+docker tag tigase/tigase-xmpp-server:nightly tigase/tigase-xmpp-server:nightly-${VERSION}
+docker push tigase/tigase-xmpp-server:nightly-${VERSION}
 ```
 
 # License
