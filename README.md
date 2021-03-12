@@ -257,7 +257,7 @@ $ for VERSION in 8.0.0 8.1.0 8.1.1 ;  do \
 ```bash
 $ docker push tigase/tigase-xmpp-server:8.0.0-jre-8
 $ for VERSION in 8.0.0 8.1.0 8.1.1 ;  do \
-	docker push tigase/tigase-xmpp-server:${VERSION}
+	docker push tigase/tigase-xmpp-server:${VERSION} ; \
   done
 $ docker tag tigase/tigase-xmpp-server:8.1.1 tigase/tigase-xmpp-server:latest
 $ docker push tigase/tigase-xmpp-server:latest
