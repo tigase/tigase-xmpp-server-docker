@@ -247,7 +247,7 @@ docker run -d \
 
 ```bash
 $ VERSION=8.0.0 ; docker build -t tigase/tigase-xmpp-server:${VERSION}-jre-8 -f ${VERSION}/jre-8/Dockerfile --no-cache ${VERSION}/
-$ for VERSION in 8.0.0 8.1.0 8.1.1 ;  do \
+$ for VERSION in 8.0.0 8.1.0 8.1.1 8.1.2 ;  do \
 	docker build -t tigase/tigase-xmpp-server:${VERSION} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ ; \
   done
 ```
@@ -256,10 +256,10 @@ $ for VERSION in 8.0.0 8.1.0 8.1.1 ;  do \
 
 ```bash
 $ docker push tigase/tigase-xmpp-server:8.0.0-jre-8
-$ for VERSION in 8.0.0 8.1.0 8.1.1 ;  do \
+$ for VERSION in 8.0.0 8.1.0 8.1.1 8.1.2;  do \
 	docker push tigase/tigase-xmpp-server:${VERSION} ; \
   done
-$ docker tag tigase/tigase-xmpp-server:8.1.1 tigase/tigase-xmpp-server:latest
+$ docker tag tigase/tigase-xmpp-server:8.1.2 tigase/tigase-xmpp-server:latest
 $ docker push tigase/tigase-xmpp-server:latest
 ```
 
