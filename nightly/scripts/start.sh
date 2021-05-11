@@ -3,7 +3,7 @@ cp -r -n /home/tigase/tigase-server/etc.orig/* /home/tigase/tigase-server/etc/
 
 echo "Checking if database is already available: ${DB_HOST}:${DB_PORT}";
 if [ -n "${DB_HOST}" ] && [ -n "${DB_PORT}" ] ; then
-  /home/tigase/tigase-server/scripts/scripts/wait-for-it.sh "${DB_HOST}":"${DB_PORT}" -t 30
+  /home/tigase/tigase-server/scripts/wait-for-it.sh "${DB_HOST}":"${DB_PORT}" -t 30
 fi
 if grep -q "config-type.*setup" "/home/tigase/tigase-server/etc/config.tdsl" ; then
   echo "Running in setup mode, skipping schema upgrade...";
