@@ -187,11 +187,11 @@ $ docker network create -d bridge tigase_cluster
 
 ```bash
 $ docker run -d \
-    --name tigase_mysql
-    --hostname tigase_mysql
-    --network tigase_cluster
-    -p 3306:3306
-    -e MYSQL_ROOT_PASSWORD=root-password
+    --name tigase_mysql \
+    --hostname tigase_mysql \
+    --network tigase_cluster \
+    -p 3306:3306 \
+    -e MYSQL_ROOT_PASSWORD=root-password \
     mysql:5.7
 ```
 
@@ -200,8 +200,8 @@ $ docker run -d \
 ```bash
 $ docker run -d \
    --name tigase_cl1 \
-   --hostname tigase_cl1
-   --network tigase_cluster
+   --hostname tigase_cl1 \
+   --network tigase_cluster \
    -v /home/tigase/etc/:/home/tigase/tigase-server/etc/ \
    -v /home/tigase/certs/:/home/tigase/tigase-server/certs/ \
    -v /home/tigase/data/:/home/tigase/tigase-server/data/ \
@@ -227,8 +227,8 @@ $ docker restart tigase_cl1
 ```bash
 docker run -d \
    --name tigase_cl2 \
-   --hostname tigase_cl2
-   --network tigase_cluster
+   --hostname tigase_cl2 \
+   --network tigase_cluster \ 
    -v /home/tigase/etc/:/home/tigase/tigase-server/etc/ \
    -v /home/tigase/certs/:/home/tigase/tigase-server/certs/ \
    -v /home/tigase/data/:/home/tigase/tigase-server/data/ \
