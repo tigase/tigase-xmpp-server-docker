@@ -37,7 +37,7 @@ Tigase's Docker package for the Tigase XMPP Server.
 
 ## Simple tags
 -   [`nightly` (*nightly/Dockerfile*)](nightly/Dockerfile)
--   [`nightly-jre16` (*nightly/Dockerfile*)](nightly/Dockerfile)
+-   [`nightly-jre16` (*nightly/Dockerfile*)](nightly/jre-16/Dockerfile)
 -   [`8.1.0`, `latest` (*8.1.0/Dockerfile*)](8.1.0/Dockerfile)
 -   [`8.0.0` (*8.0.0/Dockerfile*)](8.0.0/Dockerfile)
 -   [`8.0.0-jre8` (*8.0.0/jre-8/Dockerfile*)](8.0.0/jre-8/Dockerfile)
