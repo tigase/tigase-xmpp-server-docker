@@ -176,6 +176,9 @@ $ docker run -d \
     tigase/tigase-xmpp-server
 ```
 
+Once started, open http://localhost:8080 (from the same machine, or using http://<server_hostname>:8080), follow installer steps and save configuration at the end. You can find more details in the [Connect to the Web Installer](https://docs.tigase.net/tigase-server/master-snapshot/Administration_Guide/html/#connecttoWebInstall).
+Default credentials used to access the installer are available in the `etc/config.tdsl` and are printed in the container logs, by default those are: 'admin-user' = 'admin' and 'admin-password' = 'tigase'.
+
 ### Cluster with mysql
 
 1. Create docker network bridge named `tigase_cluster`
@@ -215,7 +218,8 @@ $ docker run -d \
    tigase/tigase-xmpp-server
 ```
 
-4. Once started, open http://localhost:8080 (from the same machine, or using http://<server_hostname>:8080), follow installer steps and save configuration at the end.
+4. Once started, open http://localhost:8080 (from the same machine, or using http://<server_hostname>:8080), follow installer steps and save configuration at the end. You can find more details in the [Connect to the Web Installer](https://docs.tigase.net/tigase-server/master-snapshot/Administration_Guide/html/#connecttoWebInstall).
+Default credentials used to access the installer are available in the `etc/config.tdsl` and are printed in the container logs, by default those are: 'admin-user' = 'admin' and 'admin-password' = 'tigase'.
 
 5. Restart current container
 
