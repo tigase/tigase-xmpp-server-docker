@@ -1,4 +1,11 @@
 #!/bin/bash
+
+if [[ ! -z "$COPY_CONFIG_SRC" ]]; then
+echo "Copying config from $COPY_CONFIG_SRC ..."
+cp -L -r -n -v "$COPY_CONFIG_SRC/config.tdsl" /home/tigase/tigase-server/etc
+echo "--------------------------------------"
+fi
+
 cp -r -n /home/tigase/tigase-server/etc.orig/* /home/tigase/tigase-server/etc/
 
 echo "Checking if database is already available: ${DB_HOST}:${DB_PORT}";
