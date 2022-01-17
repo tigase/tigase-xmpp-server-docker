@@ -16,7 +16,11 @@ if grep -q "config-type.*setup" "/home/tigase/tigase-server/etc/config.tdsl" ; t
   echo "Running in setup mode, skipping schema upgrade...";
 else
   echo "Upgrading database schema...";
-  /home/tigase/tigase-server/scripts/tigase.sh upgrade-schema /home/tigase/tigase-server/etc/tigase.conf -R "${DB_ROOT_USER}" -A "${DB_ROOT_PASS}" -L "${DB_LOG_LEVEL}"
+  ADDITIONAL_PARAMS=""
+  if [[ ! -z "$ADMIN_JID" && ! -z "$ADMIN_PASSWORD" ]]; then
+	ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS --adminJID=\"$ADMIN_JID\" --adminJIDpass=\"$ADMIN_PASSWORD\"";
+  fi
+  /home/tigase/tigase-server/scripts/tigase.sh upgrade-schema /home/tigase/tigase-server/etc/tigase.conf -R "${DB_ROOT_USER}" -A "${DB_ROOT_PASS}" -L "${DB_LOG_LEVEL}" $ADDITIONAL_PARAMS
 fi
 
 echo "Starting Tigase XMPP Server...";
