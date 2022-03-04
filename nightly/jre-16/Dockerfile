@@ -1,5 +1,5 @@
 FROM adoptopenjdk/openjdk16:debianslim-jre
-MAINTAINER "Tigase, Inc." <office@tigase.net>
+MAINTAINER "Tigase, Inc." <support@tigase.net>
 
 # Create directory structure, download Tigase XMPP Server -dist-max package and unpack it
 # At the same time remove setting JAVA_HOME from etc/tigase.conf as variable is already set
