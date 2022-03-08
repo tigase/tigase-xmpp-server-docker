@@ -18,6 +18,7 @@ Tigase's Docker package for the Tigase XMPP Server.
       - [Dedicated network](#dedicated-network)
     - [Exposing ports](#exposing-ports)
     - [Connecting to external database](#connecting-to-external-database)
+    - [Automatically creating Admin user](#automatically-creating-admin-user)
     - [Exported volumes](#exported-volumes)
     - [Tweaking memory configuration](#tweaking-memory-configuration)
     - [Operating system settings](#operating-system-settings)
