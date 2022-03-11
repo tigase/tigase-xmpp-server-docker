@@ -38,10 +38,14 @@ Tigase's Docker package for the Tigase XMPP Server.
 
 ## Simple tags
 -   [`nightly` (*nightly/Dockerfile*)](nightly/Dockerfile)
+-   [`nightly-enterprise` (*nightly/Dockerfile*)](nightly/Dockerfile)
 -   [`8.2.0`, `latest` (*8.2.0/Dockerfile*)](8.2.0/Dockerfile)
--   [`8.1.0`, `latest` (*8.1.0/Dockerfile*)](8.1.0/Dockerfile)
+-   [`8.2.0-enterprise`, `latest-enterprise` (*8.2.0/Dockerfile*)](8.2.0/Dockerfile)
+-   [`8.1.0` (*8.1.0/Dockerfile*)](8.1.0/Dockerfile)
 -   [`8.0.0` (*8.0.0/Dockerfile*)](8.0.0/Dockerfile)
 -   [`8.0.0-jre8` (*8.0.0/jre-8/Dockerfile*)](8.0.0/jre-8/Dockerfile)
+
+> **_NOTE:_** `enterprise` flavours containin commercial components
 
 # What is Tigase XMPP server?
 
@@ -115,13 +119,13 @@ It is recommended to pass database username and password for creation and schema
 $ docker run -e 'DB_ROOT_USER=root' -e 'DB_ROOT_PASS=root-pass' --name tigase-server -d tigase/tigase-xmpp-server
 ```
 
-### Automatically creating Admin user
-
-It's possible to pass `ADMIN_JID` and `ADMIN_PASSWORD` environment variables (using `-e` parameter) to automatically create an Administrator user.
-
 This will allow Tigase XMPP Server to manage and verify database schema.
 
 Database configuration may be then done using web-based setup.
+
+### Automatically creating Admin user
+
+It's possible to pass `ADMIN_JID` and `ADMIN_PASSWORD` environment variables (using `-e` parameter) to automatically create an Administrator user.
 
 ### Exported volumes
 
