@@ -261,8 +261,8 @@ for VERSION in 8.0.0 8.1.0 8.1.1 8.1.2 ;  do \
 	docker build -t tigase/tigase-xmpp-server:${VERSION} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ ; \
 done
 
-for TYPE in "" "-enterprise" ; do \ 
-  for VERSION in nightly 8.2.0 ;  do \
+for TYPE in "" "-enterprise" ; do 
+  for VERSION in nightly 8.2.0 ;  do
 	docker build --build-arg TYPE=${TYPE} -t tigase/tigase-xmpp-server:${VERSION}${TYPE} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ ; \
   done
 done
@@ -276,12 +276,12 @@ for VERSION in 8.0.0 8.1.0 8.1.1 8.1.2;  do \
 	docker push tigase/tigase-xmpp-server:${VERSION} ; \
 done
 
-for TYPE in "" "-enterprise" ; do \ 
-  for VERSION in nightly 8.2.0 ;  do \
-	docker push tigase/tigase-xmpp-server:${VERSION}${TYPE} ; \
+for TYPE in "" "-enterprise" ; do 
+  for VERSION in nightly 8.2.0 ;  do
+	docker push tigase/tigase-xmpp-server:${VERSION}${TYPE} ;
   done
-  docker tag tigase/tigase-xmpp-server:${VERSION}${TYPE} tigase/tigase-xmpp-server:latest${TYPE} ; \
-  docker push tigase/tigase-xmpp-server:${VERSION}${TYPE} ; \
+  docker tag tigase/tigase-xmpp-server:${VERSION}${TYPE} tigase/tigase-xmpp-server:latest${TYPE} ;
+  docker push tigase/tigase-xmpp-server:${VERSION}${TYPE} ;
 done
 ```
 

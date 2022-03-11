@@ -15,7 +15,7 @@ RUN mkdir /home/tigase \
                 && wget https://github.com/tigase/tigase-server/releases/download/tigase-server-8.2.0/tigase-server-8.2.0-b11690-dist${TYPE}.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& tar -zxvf tigase-server-8.2.0-b11690-dist${TYPE}.tar.gz \
+	&& tar -zxf tigase-server-8.2.0-b11690-dist${TYPE}.tar.gz \
 	&& ln -s `find . -name 'tigase-server-*' -maxdepth 1 -type d` tigase-server \
 	&& rm -rf tigase-server/docs/ \
 	&& rm -rf tigase-server-8.2.0-b11690-dist${TYPE}.tar.gz \
