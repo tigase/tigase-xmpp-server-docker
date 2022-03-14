@@ -12,7 +12,7 @@ RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends wget curl \
-                && wget https://github.com/tigase/tigase-server/releases/download/tigase-server-8.2.0/tigase-server-8.2.0-b11690-dist${TYPE}.tar.gz \
+                && wget -nv https://github.com/tigase/tigase-server/releases/download/tigase-server-8.2.0/tigase-server-8.2.0-b11690-dist${TYPE}.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& tar -zxf tigase-server-8.2.0-b11690-dist${TYPE}.tar.gz \

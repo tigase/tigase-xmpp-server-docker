@@ -9,7 +9,7 @@ RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends wget \
-	&& wget https://github.com/tigase/tigase-server/releases/download/tigase-server-8.1.1/tigase-server-8.1.1-b10861-dist-max.tar.gz \
+	&& wget -nv https://github.com/tigase/tigase-server/releases/download/tigase-server-8.1.1/tigase-server-8.1.1-b10861-dist-max.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& tar -zxvf tigase-server-8.1.1-b10861-dist-max.tar.gz \
