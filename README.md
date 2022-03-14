@@ -287,7 +287,7 @@ for TYPE in "" "-enterprise" ; do
 	docker push tigase/tigase-xmpp-server:${VERSION}${TYPE} ;
   done
   docker tag tigase/tigase-xmpp-server:${VERSION}${TYPE} tigase/tigase-xmpp-server:latest${TYPE} ;
-  docker push tigase/tigase-xmpp-server:${VERSION}${TYPE} ;
+  docker push tigase/tigase-xmpp-server:latest${TYPE} ;
 done
 ```
 
