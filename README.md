@@ -259,6 +259,8 @@ docker run -d \
 
 # Building
 
+We should build multi-arch images, please prepare build environment as outlined in https://docs.docker.com/desktop/multi-arch/
+
 ```bash
 VERSION=8.0.0 ; docker build -t tigase/tigase-xmpp-server:${VERSION}-jre-8 -f ${VERSION}/jre-8/Dockerfile --no-cache ${VERSION}/
 for VERSION in 8.0.0 8.1.0 8.1.1 8.1.2 ;  do \
@@ -267,7 +269,7 @@ done
 
 for TYPE in "" "-enterprise" ; do 
   for VERSION in nightly 8.2.0 ;  do
-	docker build --build-arg TYPE=${TYPE} -t tigase/tigase-xmpp-server:${VERSION}${TYPE} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ ; \
+	docker buildx build --platform linux/amd64,linux/arm64 --build-arg TYPE=${TYPE} -t tigase/tigase-xmpp-server:${VERSION}${TYPE} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ --push ; \
   done
 done
 ```
