@@ -257,24 +257,39 @@ docker run -d \
 
 > **NOTE:** Make sure that `name`, `hostname` and bounded ports are unique - in this case second node uses `tigase_cl2` (instead of `tigase_cl1`) as `name` and `hostname` and bounded ports were changed to `5322`, `5380`, `5390` and `8083` to avoid conflicts.
 
-# Building
+# Building & Publishing
 
-We should build multi-arch images, please prepare build environment as outlined in https://docs.docker.com/desktop/multi-arch/
+We should build multi-arch images, please prepare build environment as outlined in https://docs.docker.com/desktop/multi-arch/ (because of the limitations of multi-arch one MUST push using `build` to properly push multi-arch tag)
 
+1) Older versions (without multiple types)
 ```bash
 VERSION=8.0.0 ; docker build -t tigase/tigase-xmpp-server:${VERSION}-jre-8 -f ${VERSION}/jre-8/Dockerfile --no-cache ${VERSION}/
 for VERSION in 8.0.0 8.1.0 8.1.1 8.1.2 ;  do \
 	docker build -t tigase/tigase-xmpp-server:${VERSION} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ ; \
 done
+```
 
+2) Newer versions with multiple types -- currently only `nightly` version but after releasing more version each subsequent version should be added to the list
+```bash
 for TYPE in "" "-enterprise" ; do 
-  for VERSION in nightly 8.2.0 ;  do
+  for VERSION in nightly ;  do
 	docker buildx build --platform linux/amd64,linux/arm64 --build-arg TYPE=${TYPE} -t tigase/tigase-xmpp-server:${VERSION}${TYPE} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ --push ; \
   done
 done
 ```
 
+3) Version that's also `latest`
+```bash
+for TYPE in "" "-enterprise" ; do 
+  for VERSION in 8.2.0 ;  do
+	docker buildx build --platform linux/amd64,linux/arm64 --build-arg TYPE=${TYPE} -t tigase/tigase-xmpp-server:${VERSION}${TYPE} -t tigase/tigase-xmpp-server:latest${TYPE} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ --push ; \
+  done
+done
+```
+
 ## Publishing
+
+> **NOTE**: Below instructions don't apply to multi-arch builds as those push only single architecture image!
 
 ```bash
 docker push tigase/tigase-xmpp-server:8.0.0-jre-8
