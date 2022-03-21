@@ -8,6 +8,7 @@ RUN $JAVA_HOME/bin/jlink \
          --add-modules java.logging \
          --add-modules java.management \
          --add-modules java.naming \
+         --add-modules jdk.naming.dns \
          --add-modules java.security.sasl \
          --add-modules java.sql \
          --add-modules jdk.management \
