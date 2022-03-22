@@ -18,9 +18,15 @@ else
   echo "Upgrading database schema...";
   ADDITIONAL_PARAMS=""
   if [[ ! -z "$ADMIN_JID" && ! -z "$ADMIN_PASSWORD" ]]; then
-	ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS --adminJID=\"$ADMIN_JID\" --adminJIDpass=\"$ADMIN_PASSWORD\"";
+	  ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS --adminJID=\"$ADMIN_JID\" --adminJIDpass=\"$ADMIN_PASSWORD\"";
   fi
-  /home/tigase/tigase-server/scripts/tigase.sh upgrade-schema /home/tigase/tigase-server/etc/tigase.conf -R "${DB_ROOT_USER}" -A "${DB_ROOT_PASS}" $ADDITIONAL_PARAMS -L "${DB_LOG_LEVEL}" 
+  if [[ ! -z "$DB_ROOT_USER" && ! -z "$DB_ROOT_PASS" ]]; then
+	  ADDITIONAL_PARAMS="-R \"${DB_ROOT_USER}\" -A \"${DB_ROOT_PASS}\"";
+  fi
+  if [[ ! -z "$DB_LOG_LEVEL" ]]; then
+	  ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS -L \"${DB_LOG_LEVEL}\"";
+  fi
+  /home/tigase/tigase-server/scripts/tigase.sh upgrade-schema /home/tigase/tigase-server/etc/tigase.conf "$ADDITIONAL_PARAMS"
 fi
 
 echo "Starting Tigase XMPP Server...";
