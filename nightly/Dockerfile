@@ -7,7 +7,10 @@ RUN $JAVA_HOME/bin/jlink \
          --add-modules java.base \
          --add-modules java.logging \
          --add-modules java.management \
+         --add-modules java.management.rmi \
+         --add-modules java.rmi \
          --add-modules java.naming \
+         --add-modules jdk.naming.rmi \
          --add-modules jdk.naming.dns \
          --add-modules java.security.sasl \
          --add-modules java.sql \
