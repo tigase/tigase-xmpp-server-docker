@@ -21,7 +21,7 @@ else
 	  ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS --adminJID=\"$ADMIN_JID\" --adminJIDpass=\"$ADMIN_PASSWORD\"";
   fi
   if [[ ! -z "$DB_ROOT_USER" && ! -z "$DB_ROOT_PASS" ]]; then
-	  ADDITIONAL_PARAMS="-R \"${DB_ROOT_USER}\" -A \"${DB_ROOT_PASS}\"";
+	  ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS -R \"${DB_ROOT_USER}\" -A \"${DB_ROOT_PASS}\"";
   fi
   if [[ ! -z "$DB_LOG_LEVEL" ]]; then
 	  ADDITIONAL_PARAMS="$ADDITIONAL_PARAMS -L \"${DB_LOG_LEVEL}\"";
