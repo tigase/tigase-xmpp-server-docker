@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  xmpp:
+    image: "tigase/tigase-xmpp-server:latest"
+#    image: "tigase/tigase-xmpp-server:latest-enterprise"
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+      - "5222:5222"
+      - "5223:5223"
+      - "5269:5269"
+      - "5270:5270"
+      - "5277:5277"
+      - "5280:5280"
+      - "5281:5281"
+      - "5290:5290"
+      - "5291:5291"
+      - "9050:9050"
+    volumes:
+      - ./tigase-server/etc:/home/tigase/tigase-server/etc
+      - ./tigase-server/data:/home/tigase/tigase-server/data
+      - ./tigase-server/logs:/home/tigase/tigase-server/logs
+      - ./tigase-server/tigasedb:/home/tigase/tigase-server/tigasedb
+    environment:
+      - PRODUCTION_HEAP_SETTINGS
+      - VHOST
+      - CNAME
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_ROOT_USER=root
+      - DB_ROOT_PASS=root
+
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
