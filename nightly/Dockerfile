@@ -74,7 +74,7 @@ EXPOSE 5222 5223 5269 5277 5280 5281 5290 5291 8080 9050 9070
 
 # Set possible volume (directories which can be mounted from the docker host machine)
 # like etc/, conf/, certs/, logs/, data/
-VOLUME ["/home/tigase/tigase-server/etc", "/home/tigase/tigase-server/conf", "/home/tigase/tigase-server/certs", "/home/tigase/tigase-server/logs", "/home/tigase/tigase-server/data"]
+VOLUME ["/home/tigase/tigase-server/etc", "/home/tigase/tigase-server/conf", "/home/tigase/tigase-server/certs", "/home/tigase/tigase-server/logs", "/home/tigase/tigase-server/data", "/home/tigase/tigase-server/tigasedb"]
 
 # Define script which should be executed on container startup
 CMD ["/bin/bash", "/start.sh"]
