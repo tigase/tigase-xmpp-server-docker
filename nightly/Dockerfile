@@ -50,13 +50,13 @@ RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends ca-certificates wget curl less \
-	&& wget -nv https://build.tigase.net/nightlies/dists/latest/tigase-server-dist-enterprise.tar.gz \
+	&& wget -nv https://build.tigase.net/nightlies/dists/latest/tigase-server-dist${TYPE}.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& tar -zxf tigase-server-dist-enterprise.tar.gz \
+	&& tar -zxf tigase-server-dist${TYPE}.tar.gz \
 	&& ln -s `find . -name 'tigase-server-*' -maxdepth 1 -type d` tigase-server \
 	&& rm -rf tigase-server/docs/ \
-	&& rm -rf tigase-server-dist-enterprise.tar.gz \
+	&& rm -rf tigase-server-dist${TYPE}.tar.gz \
 	&& sed -i -e 's/JAVA_HOME/#JAVA_HOME/' tigase-server/etc/tigase.conf \
 	&& mv tigase-server/etc tigase-server/etc.orig
 
