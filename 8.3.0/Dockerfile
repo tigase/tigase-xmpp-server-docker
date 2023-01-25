@@ -46,6 +46,10 @@ MAINTAINER "Tigase, Inc." <support@tigase.net>
 # At the same time remove setting JAVA_HOME from etc/tigase.conf as variable is already set
 # Then move content of etc/ directory to etc.orig/ to be able to use volume to host configuration.
 # Additionally we are removing docs/ and downloaded package to reduce size.
+
+ARG TYPE=""
+ENV TYPE ${TYPE}
+
 RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
