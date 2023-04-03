@@ -276,7 +276,7 @@ done
 2) Newer versions with multiple types -- currently only `nightly` version but after releasing more version each subsequent version should be added to the list
 ```bash
 for TYPE in "" "-enterprise" ; do 
-  for VERSION in  8.2.0 8.2.1 8.3.0 nightly ;  do
+  for VERSION in  8.2.0 8.2.1 8.2.2 8.3.0 nightly ;  do
 	docker buildx build --platform linux/amd64,linux/arm64 --build-arg TYPE=${TYPE} -t tigase/tigase-xmpp-server:${VERSION}${TYPE} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ --push	
   done
 done
