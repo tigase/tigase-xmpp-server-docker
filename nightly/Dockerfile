@@ -1,44 +1,5 @@
-#FROM eclipse-temurin:17-jre
-FROM eclipse-temurin:17 as jre-build
-
-# Create a custom Java runtime / to get the required modules use `jdeps -s jars/<binary>.jar`
-RUN $JAVA_HOME/bin/jlink \
-          # tigase-server
-         --add-modules java.base \
-         --add-modules java.logging \
-         --add-modules java.management \
-         --add-modules java.management.rmi \
-         --add-modules java.rmi \
-         --add-modules java.naming \
-         --add-modules jdk.naming.rmi \
-         --add-modules jdk.naming.dns \
-         --add-modules java.security.sasl \
-         --add-modules java.sql \
-         --add-modules jdk.management \
-          # java.scripting can probably removed after removing groovy
-         --add-modules java.scripting \
-          # required for WebSockets
-         --add-modules java.net.http \
-          # required for TLS
-         --add-modules jdk.crypto.ec \
-          # tigase-http-api
-         --add-modules java.desktop \
-         --add-modules jdk.httpserver \
-          # groovy
-         --add-modules java.compiler \
-         --add-modules java.prefs \
-         --add-modules java.xml \
-         --strip-debug \
-         --no-man-pages \
-         --no-header-files \
-         --compress=2 \
-         --output ./javaruntime
-
 # Define your base image
-FROM debian:bullseye-slim
-ENV JAVA_HOME=/opt/java/openjdk
-ENV PATH "${JAVA_HOME}/bin:${PATH}"
-COPY --from=jre-build /javaruntime $JAVA_HOME
+FROM tigase/tigase-xmpp-server-base:17
 
 MAINTAINER "Tigase, Inc." <support@tigase.net>
 
@@ -53,7 +14,7 @@ ENV TYPE ${TYPE}
 RUN mkdir /home/tigase \
 	&& cd /home/tigase \
 	&& apt-get update \
-	&& apt-get install -y --no-install-recommends ca-certificates wget curl less \
+	&& apt-get install -y --no-install-recommends wget \
 	&& wget -nv https://build.tigase.net/nightlies/dists/latest/tigase-server-dist${TYPE}.tar.gz \
 	&& apt-get remove -y wget \
 	&& rm -rf /var/lib/apt/lists/* \
