@@ -39,6 +39,10 @@ Tigase's Docker package for the Tigase XMPP Server.
 ## Simple tags
 -   [`nightly` (*nightly/Dockerfile*)](nightly/Dockerfile)
 -   [`nightly-enterprise` (*nightly/Dockerfile*)](nightly/Dockerfile)
+-   [`8.3.1`, `latest` (*8.3.1/Dockerfile*)](8.2.1/Dockerfile)
+-   [`8.3.1-enterprise`, `latest-enterprise` (*8.3.1/Dockerfile*)](8.2.1/Dockerfile)
+-   [`8.3.0`, `latest` (*8.3.0/Dockerfile*)](8.2.1/Dockerfile)
+-   [`8.3.0-enterprise`, `latest-enterprise` (*8.3.0/Dockerfile*)](8.2.1/Dockerfile)
 -   [`8.2.1`, `latest` (*8.2.1/Dockerfile*)](8.2.1/Dockerfile)
 -   [`8.2.1-enterprise`, `latest-enterprise` (*8.2.1/Dockerfile*)](8.2.1/Dockerfile)
 -   [`8.2.0` (*8.2.0/Dockerfile*)](8.2.0/Dockerfile)
@@ -278,7 +282,7 @@ done
 This image (and its build process) depends on `tigase/tigase-xmpp-server-base:17`, which build process is described in point 4.
 ```bash
 for TYPE in "" "-enterprise" ; do 
-  for VERSION in  8.2.0 8.2.1 8.2.2 8.3.0 nightly ;  do
+  for VERSION in  8.2.0 8.2.1 8.2.2 8.2.3 8.2.4 8.3.0 8.3.1 nightly ;  do
 	docker buildx build --platform linux/amd64,linux/arm64 --build-arg TYPE=${TYPE} -t tigase/tigase-xmpp-server:${VERSION}${TYPE} -f ${VERSION}/Dockerfile --no-cache ${VERSION}/ --push	
   done
 done
