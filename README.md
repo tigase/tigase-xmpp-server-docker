@@ -1,4 +1,10 @@
-Tigase's Docker package for the Tigase XMPP Server.
+# This project is **LEGACY** and **obsolete**
+
+Since version 8.3.1 docker images are build using jib directly in the [main tigase distribution project](https://tigase.dev/tigase/_server/tigase-server/)!
+
+-------
+
+**LEGACY** Tigase's Docker package for the Tigase XMPP Server.
 
 [![](https://images.microbadger.com/badges/version/tigase/tigase-xmpp-server:8.1.0.svg)](https://microbadger.com/images/tigase/tigase-xmpp-server:8.1.0 "Get your own version badge on microbadger.com")
 ![Docker Pulls](https://img.shields.io/docker/pulls/tigase/tigase-xmpp-server)
