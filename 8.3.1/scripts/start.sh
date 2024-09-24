@@ -7,6 +7,7 @@ echo "--------------------------------------"
 fi
 
 cp -r -n /home/tigase/tigase-server/etc.orig/* /home/tigase/tigase-server/etc/
+cp -r -n /home/tigase/tigase-server/jars.orig/* /home/tigase/tigase-server/jars/
 
 echo "Checking if database is already available: ${DB_HOST}:${DB_PORT}";
 if [ -n "${DB_HOST}" ] && [ -n "${DB_PORT}" ] ; then

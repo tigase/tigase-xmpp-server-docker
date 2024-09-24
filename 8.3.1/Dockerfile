@@ -1,44 +1,4 @@
-#FROM eclipse-temurin:17-jre
-FROM eclipse-temurin:17 as jre-build
-
-# Create a custom Java runtime / to get the required modules use `jdeps -s jars/<binary>.jar`
-RUN $JAVA_HOME/bin/jlink \
-          # tigase-server
-         --add-modules java.base \
-         --add-modules java.logging \
-         --add-modules java.management \
-         --add-modules java.management.rmi \
-         --add-modules java.rmi \
-         --add-modules java.naming \
-         --add-modules jdk.naming.rmi \
-         --add-modules jdk.naming.dns \
-         --add-modules java.security.sasl \
-         --add-modules java.sql \
-         --add-modules jdk.management \
-          # java.scripting can probably removed after removing groovy
-         --add-modules java.scripting \
-          # required for WebSockets
-         --add-modules java.net.http \
-          # required for TLS
-         --add-modules jdk.crypto.ec \
-          # tigase-http-api
-         --add-modules java.desktop \
-         --add-modules jdk.httpserver \
-          # groovy
-         --add-modules java.compiler \
-         --add-modules java.prefs \
-         --add-modules java.xml \
-         --strip-debug \
-         --no-man-pages \
-         --no-header-files \
-         --compress=2 \
-         --output ./javaruntime
-
-# Define your base image
-FROM debian:bullseye-slim
-ENV JAVA_HOME=/opt/java/openjdk
-ENV PATH "${JAVA_HOME}/bin:${PATH}"
-COPY --from=jre-build /javaruntime $JAVA_HOME
+FROM eclipse-temurin:17-jre
 
 MAINTAINER "Tigase, Inc." <support@tigase.net>
 
@@ -62,7 +22,8 @@ RUN mkdir /home/tigase \
 	&& rm -rf tigase-server/docs/ \
 	&& rm -rf tigase-server-*${TYPE}.tar.gz \
 	&& sed -i -e 's/JAVA_HOME/#JAVA_HOME/' tigase-server/etc/tigase.conf \
-	&& mv tigase-server/etc tigase-server/etc.orig
+	&& mv tigase-server/etc tigase-server/etc.orig \
+	&& mv tigase-server/jars tigase-server/jars.orig
 
 # Add statup scripts and make them executable
 # We need custom scripts to make sure that database is upgraded
@@ -78,7 +39,7 @@ EXPOSE 5222 5223 5269 5277 5280 5281 5290 5291 8080 9050 9070
 
 # Set possible volume (directories which can be mounted from the docker host machine)
 # like etc/, conf/, certs/, logs/, data/
-VOLUME ["/home/tigase/tigase-server/etc", "/home/tigase/tigase-server/conf", "/home/tigase/tigase-server/certs", "/home/tigase/tigase-server/logs", "/home/tigase/tigase-server/data", "/home/tigase/tigase-server/tigasedb"]
+VOLUME ["/home/tigase/tigase-server/etc", "/home/tigase/tigase-server/conf", "/home/tigase/tigase-server/certs", "/home/tigase/tigase-server/logs", "/home/tigase/tigase-server/scripts", "/home/tigase/tigase-server/jars", "/home/tigase/tigase-server/win-stuff", "/home/tigase/tigase-server/data", "/home/tigase/tigase-server/tigasedb"]
 
 # Define script which should be executed on container startup
 CMD ["/bin/bash", "/start.sh"]
