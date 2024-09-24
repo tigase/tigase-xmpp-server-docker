@@ -2,6 +2,14 @@
 
 Since version 8.3.1 docker images are build using jib directly in the [main tigase distribution project](https://tigase.dev/tigase/_server/tigase-server/)!
 
+In order to keep jlink functionality we do keep base image for JDK17 available in `jre-17/Dockerfile`
+As described in "Building JRE 17 used by nightly builds" section it's possible to build it using:
+
+```
+docker buildx build --platform linux/amd64,linux/arm64 -t tigase/tigase-xmpp-server-base:17 -f jre-17/Dockerfile --no-cache jre-17 --push
+```
+
+
 -------
 
 **LEGACY** Tigase's Docker package for the Tigase XMPP Server.

@@ -18,6 +18,7 @@ RUN $JAVA_HOME/bin/jlink \
           # java.scripting can probably removed after removing groovy
          --add-modules java.scripting \
           # required for WebSockets
+         --add-modules jdk.net \
          --add-modules java.net.http \
           # required for TLS
          --add-modules jdk.crypto.ec \
