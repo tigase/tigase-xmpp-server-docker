@@ -1,5 +1,5 @@
-#FROM eclipse-temurin:17-jre
-FROM eclipse-temurin:17 as jre-build
+ARG JDK_VERSION=21
+FROM eclipse-temurin:${JDK_VERSION} AS jre-build
 
 # Create a custom Java runtime / to get the required modules use `jdeps -s jars/<binary>.jar`
 RUN $JAVA_HOME/bin/jlink \
@@ -22,7 +22,7 @@ RUN $JAVA_HOME/bin/jlink \
          --add-modules java.net.http \
           # required for TLS
          --add-modules jdk.crypto.ec \
-          # tigase-http-api
+          # tigase-http-api; java.desktop can be removed after removing groovy as it depends on `java.beans.Transient`
          --add-modules java.desktop \
          --add-modules jdk.httpserver \
           # groovy
@@ -36,20 +36,17 @@ RUN $JAVA_HOME/bin/jlink \
          --output ./javaruntime
 
 # Define your base image
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 ENV JAVA_HOME=/opt/java/openjdk
-ENV PATH "${JAVA_HOME}/bin:${PATH}"
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 COPY --from=jre-build /javaruntime $JAVA_HOME
 
-MAINTAINER "Tigase, Inc." <support@tigase.net>
+LABEL org.opencontainers.image.authors="Tigase, Inc. <support@tigase.net>"
 
 # Create directory structure, download Tigase XMPP Server -dist-max package and unpack it
 # At the same time remove setting JAVA_HOME from etc/tigase.conf as variable is already set
 # Then move content of etc/ directory to etc.orig/ to be able to use volume to host configuration.
 # Additionally we are removing docs/ and downloaded package to reduce size.
-
-ARG TYPE=""
-ENV TYPE ${TYPE}
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends ca-certificates curl less \

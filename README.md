@@ -2,13 +2,15 @@
 
 Since version 8.3.1 docker images are build using jib directly in the [main tigase distribution project](https://tigase.dev/tigase/_server/tigase-server/)!
 
-In order to keep jlink functionality we do keep base image for JDK17 available in `jre-17/Dockerfile`
-As described in "Building JRE 17 used by nightly builds" section it's possible to build it using:
+In order to keep jlink functionality we do keep base image for JDK available in `jre-jlink-base/Dockerfile(-alpine)`
+As described in "Building JRE <X> used by nightly builds" section it's possible to build it using:
 
 ```
-docker buildx build --platform linux/amd64,linux/arm64 -t tigase/tigase-xmpp-server-base:17 -f jre-17/Dockerfile --no-cache jre-17 --push
+docker buildx build --platform linux/amd64,linux/arm64 --build-arg JDK_VERSION=${JDK_VERSION:-21} -t tigase/tigase-xmpp-server-base:${JDK_VERSION:-21}${ALPINE:+-$ALPINE} -f jre-jlink-base/Dockerfile${ALPINE:+-$ALPINE} --no-cache jre-jlink-base --push
 ```
 
+> #### To build different/older version use: `export JDK_VERSION=17`
+> #### To build **`alpine`** version run set `ALPINE` variable to `alpine`: `export ALPINE="alpine"` 
 
 -------
 
@@ -311,10 +313,12 @@ for TYPE in "" "-enterprise" ; do
 done
 ```
 
-4) Building JRE 17 used by nightly builds
+4) Building JRE <X> used by nightly builds
 ```
-docker buildx build --platform linux/amd64,linux/arm64 -t tigase/tigase-xmpp-server-base:17 -f jre-17/Dockerfile --no-cache jre-17 --push
+docker buildx build --platform linux/amd64,linux/arm64 --build-arg JDK_VERSION=${JDK_VERSION:-21} -t tigase/tigase-xmpp-server-base:${JDK_VERSION:-21} -f jre-jlink-base/Dockerfile --no-cache jre-jlink-base --push
 ```
+
+> #### NOTE: It's possible to build different base JDK version; to do that set `JDK_VERSION` environment variable to desired version, e.g. to build older, legacy JDK17 set it like that: `export JDK_VERSION=17`
 
 ## Publishing
 
