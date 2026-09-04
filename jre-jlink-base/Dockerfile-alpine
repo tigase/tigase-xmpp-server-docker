@@ -1,4 +1,4 @@
-ARG JDK_VERSION=21
+ARG JDK_VERSION=25
 FROM eclipse-temurin:${JDK_VERSION} AS jre-build
 
 # Create a custom Java runtime / to get the required modules use `jdeps -s jars/<binary>.jar`
@@ -13,6 +13,7 @@ RUN $JAVA_HOME/bin/jlink \
          --add-modules jdk.naming.rmi \
          --add-modules jdk.naming.dns \
          --add-modules java.security.sasl \
+         --add-modules java.security.jgss \
          --add-modules java.sql \
          --add-modules jdk.management \
           # java.scripting can probably removed after removing groovy
