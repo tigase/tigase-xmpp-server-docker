@@ -44,10 +44,9 @@ COPY --from=jre-build /javaruntime $JAVA_HOME
 
 LABEL org.opencontainers.image.authors="Tigase, Inc. <support@tigase.net>"
 
-# Create directory structure, download Tigase XMPP Server -dist-max package and unpack it
-# At the same time remove setting JAVA_HOME from etc/tigase.conf as variable is already set
-# Then move content of etc/ directory to etc.orig/ to be able to use volume to host configuration.
-# Additionally we are removing docs/ and downloaded package to reduce size.
+## set UTF locale to ensure compatibility
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 ARG TYPE=""
 ENV TYPE=${TYPE}
